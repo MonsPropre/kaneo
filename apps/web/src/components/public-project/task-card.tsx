@@ -70,7 +70,7 @@ export function PublicTaskCard({
       onClick={handleClick}
       aria-label={`View details for task ${task.title}`}
     >
-      <div className="text-[10px] font-mono text-muted-foreground mb-2">
+      <div className="w-full min-w-0 truncate text-[10px] font-mono text-muted-foreground mb-2">
         {projectSlug}-{task.number}
       </div>
 

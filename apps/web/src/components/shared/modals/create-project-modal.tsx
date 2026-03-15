@@ -204,7 +204,7 @@ function CreateProjectModal({ open, onClose }: CreateProjectModalProps) {
                   required
                 />
               </div>
-              <div className="flex-1 text-xs text-muted-foreground opacity-80">
+              <div className="max-w-70 min-w-0 truncate flex-1 text-xs text-muted-foreground opacity-80">
                 Used for ticket IDs (e.g., {slug || "ABC"}-123)
               </div>
             </div>

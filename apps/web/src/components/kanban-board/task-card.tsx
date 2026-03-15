@@ -195,7 +195,7 @@ function TaskCard({ task }: TaskCardProps) {
             }}
           >
             {showTaskNumbers && (
-              <div className="mb-2 text-[10px] font-mono text-muted-foreground/90">
+              <div className="pr-6 w-full min-w-0 truncate mb-2 text-[10px] font-mono text-muted-foreground/90">
                 {project?.slug}-{task.number}
               </div>
             )}

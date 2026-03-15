@@ -389,7 +389,7 @@ function ListView({ project }: ListViewProps) {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-mono text-muted-foreground">
+                  <span className="max-w-20 min-w-0 truncate text-[10px] font-mono text-muted-foreground">
                     {project?.slug}-{activeTask.number}
                   </span>
                   <span className="text-xs text-foreground truncate">

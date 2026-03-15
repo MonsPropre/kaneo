@@ -66,9 +66,9 @@ export default function TaskDetailsSheet({
         side="right"
         className="w-full max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl p-0 gap-0 [&>button]:hidden"
       >
-        <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-background shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-muted-foreground">
+        <div className="flex items-center justify-between px-2 py-2.5 border-b border-border bg-background shrink-0">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <span className="min-w-0 truncate text-sm font-medium text-muted-foreground">
               {project?.slug}-{task?.number}
             </span>
           </div>

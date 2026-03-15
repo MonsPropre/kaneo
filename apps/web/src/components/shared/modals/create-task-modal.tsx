@@ -530,8 +530,10 @@ function CreateTaskModal({ open, onClose, status }: CreateTaskModalProps) {
           <DialogTitle asChild>
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="text-muted-foreground font-semibold tracking-wider text-sm">
-                  {project?.slug?.toUpperCase() || "TASK"}
+                <BreadcrumbItem className="flex min-w-0 items-center">
+                  <span className="max-w-20 min-w-0 truncate text-sm font-semibold tracking-wider text-muted-foreground">
+                    {project?.slug?.toUpperCase() || "TASK"}
+                  </span>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem className="text-foreground font-medium text-sm">

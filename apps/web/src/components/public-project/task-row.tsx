@@ -33,7 +33,7 @@ export function PublicTaskRow({
       aria-label={`View details for task ${task.title}`}
     >
       <div className="flex-1 min-w-0 flex items-center gap-3">
-        <div className="text-xs font-mono text-muted-foreground shrink-0 font-medium">
+        <div className="max-w-20 min-w-0 truncate text-xs font-mono text-muted-foreground shrink-0 font-medium">
           {projectSlug}-{task.number}
         </div>
         <div className="flex flex-col gap-1 flex-1 min-w-0">

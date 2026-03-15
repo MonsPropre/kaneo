@@ -37,7 +37,7 @@ export default function TaskDetailsContent({
   return (
     <div className={`${className} gap-4`}>
       <div className="flex flex-col gap-2.5">
-        <p className="text-xs font-semibold text-foreground/70">
+        <p className="pr-6 min-w-0 truncate text-xs font-semibold text-foreground/70">
           {project?.slug}-{task?.number}
         </p>
         <TaskTitle taskId={taskId} />

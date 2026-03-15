@@ -422,7 +422,7 @@ function RouteComponent() {
                           <FormLabel className="text-sm font-medium">
                             Key
                           </FormLabel>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="max-w-70 min-w-0 truncate text-xs text-muted-foreground">
                             Used for ticket IDs (e.g.,{" "}
                             {projectForm.watch("slug") || "ABC"}-123)
                           </p>

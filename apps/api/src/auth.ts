@@ -29,6 +29,7 @@ import {
   magicLink,
   openAPI,
   organization,
+  twoFactor,
 } from "better-auth/plugins";
 import type { AccessControl } from "better-auth/plugins/access";
 import type { UserWithAnonymous } from "better-auth/plugins/anonymous";
@@ -236,6 +237,9 @@ export const auth = betterAuth({
         ]
       : []),
     lastLoginMethod(),
+    twoFactor({
+      issuer: "Kaneo",
+    }),
     magicLink({
       sendMagicLink: async ({ email, url }) => {
         try {

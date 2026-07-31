@@ -415,7 +415,7 @@
 			"toastPreferencesSaveFailed": "Échec de l'enregistrement des préférences de notification",
 			"toastRuleSavedGeneric": "Règle de notification de l'espace de travail enregistrée",
 			"toastRuleRemovedGeneric": "Règle de notification de l'espace de travail supprimée",
-			"eventComments": "Comments and mentions",
+			"eventComments": "Commentaires et mentions",
 			"eventCommentsHint": "Inclut les nouveaux commentaires sur les tâches qui vous sont assignées et les @mentions directes.",
 			"eventDueDateReminders": "Rappels des dates d'échéance",
 			"eventPreferencesDescription": "Choisissez les événements de tâche qui créent des notifications dans l'application et peuvent être livrés à vos canaux connectés.",
@@ -717,7 +717,7 @@
 			"ownerPlaceholder": "e.g., octocat",
 			"repoNameLabel": "Nom du dépôt",
 			"repoNameHint": "Le nom du dépôt",
-			"repoNamePlaceholder": "e.g., my-project",
+			"repoNamePlaceholder": "e.g., mon-projet",
 			"actionsTitle": "Actions",
 			"actionsHint": "Gérer la connexion de votre dépôt",
 			"browse": "Parcourir",
@@ -922,12 +922,12 @@
 				"taskDueDateChanged": "Date d'échéance modifiée",
 				"taskAssigneeChanged": "Assigné modifié",
 				"taskUnassigned": "Tâche désassignée",
-				"dueDateReminder": "Due-date reminders"
+				"dueDateReminder": "Rappels de date d'échéance"
 			},
 			"connect": "Connecter le webhook",
 			"saveChanges": "Enregistrer les modifications",
 			"disconnect": "Déconnecter",
-			"reminderLeadTimeLabel": "Send the webhook this many hours before"
+			"reminderLeadTimeLabel": "Envoyer le webhook ce nombre d'heures avant"
 		},
 		"telegramIntegration": {
 			"validation": {
@@ -1040,29 +1040,29 @@
 			"open": "Ouvert"
 		},
 		"workspaceLabels": {
-			"cardDescription": "Gérez les étiquettes qui peuvent être attribuées aux tâches.",
+			"cardDescription": "Gérez les labels qui peuvent être attribuées aux tâches.",
 			"colorLabel": "Couleur",
-			"createDescription": "Créez une nouvelle étiquette qui peut être utilisée dans les tâches de cet espace de travail.",
-			"createError": "Échec de la création de l'étiquette",
-			"createLabel": "Créer une étiquette",
-			"createSuccess": "Étiquette créée",
-			"deleteConfirmDescription": "Cela supprimera définitivement cette étiquette de toutes les tâches. Cette action ne peut pas être annulée.",
-			"deleteConfirmTitle": "Supprimer cette étiquette?",
-			"deleteError": "Échec de la suppression de l'étiquette",
+			"createDescription": "Créez un nouveau label qui peut être utilisée dans les tâches de cet espace de travail.",
+			"createError": "Échec de la création du label",
+			"createLabel": "Créer un label",
+			"createSuccess": "Label créé",
+			"deleteConfirmDescription": "Cela supprimera définitivement ce label de toutes les tâches. Cette action ne peut pas être annulée.",
+			"deleteConfirmTitle": "Supprimer ce label?",
+			"deleteError": "Échec de la suppression du label",
 			"deleteLabel": "Supprimer",
-			"deleteSuccess": "Étiquette supprimée",
-			"editDescription": "Mettre à jour le nom ou la couleur de cette étiquette.",
-			"editLabel": "Modifier l'étiquette",
-			"empty": "Aucune étiquette pour le moment. Créez votre première étiquette pour commencer.",
-			"nameLabel": "Nom de l'étiquette",
-			"namePlaceholder": "Entrez le nom de l'étiquette",
-			"nameRequired": "Le nom de l'étiquette est requis",
-			"pageTitle": "Paramètres des étiquettes",
+			"deleteSuccess": "Label supprimé",
+			"editDescription": "Mettre à jour le nom ou la couleur de ce label.",
+			"editLabel": "Modifier le label",
+			"empty": "Aucun label pour le moment. Créez votre premier label pour commencer.",
+			"nameLabel": "Nom du label",
+			"namePlaceholder": "Entrez le nom du label",
+			"nameRequired": "Le nom du label est requis",
+			"pageTitle": "Paramètres des labels",
 			"saveLabel": "Sauvegarder",
-			"subtitle": "Créer, modifier et supprimer des étiquettes au niveau de l'espace de travail.",
-			"title": "Étiquettes",
-			"updateError": "Échec de la mise à jour de l'étiquette",
-			"updateSuccess": "Étiquette mise à jour"
+			"subtitle": "Créer, modifier et supprimer des labels au niveau de l'espace de travail.",
+			"title": "Labels",
+			"updateError": "Échec de la mise à jour du label",
+			"updateSuccess": "Label mis à jour"
 		},
 		"workspaceRoles": {
 			"allChangesSaved": "Toutes les modifications ont été enregistrées",
@@ -1086,7 +1086,7 @@
 			"loading": "Chargement…",
 			"nameHint": "En minuscules. Impossible de modifier par la suite.",
 			"nameLabel": "Nom du rôle",
-			"namePlaceholder": "e.g. reviewer",
+			"namePlaceholder": "e.g. examinateur",
 			"newRole": "Nouveau rôle",
 			"noAccess": "Vous avez besoin des permissions d'administrateur ou de propriétaire pour gérer les rôles de l'espace de travail.",
 			"pageTitle": "Rôles",
@@ -1095,19 +1095,19 @@
 			"permissions": {
 				"label": {
 					"create": {
-						"description": "Peut créer des étiquettes",
+						"description": "Peut créer des labels",
 						"label": "Créer"
 					},
 					"delete": {
-						"description": "Peut supprimer des étiquettes",
+						"description": "Peut supprimer des labels",
 						"label": "Supprimer"
 					},
 					"read": {
-						"description": "Peut visualiser les étiquettes",
+						"description": "Peut visualiser les labels",
 						"label": "Visualiser"
 					},
 					"update": {
-						"description": "Peut modifier les étiquettes",
+						"description": "Peut modifier les labels",
 						"label": "Modifier"
 					}
 				},
@@ -1175,7 +1175,7 @@
 				}
 			},
 			"resources": {
-				"label": "Étiquettes",
+				"label": "Labels",
 				"project": "Projets",
 				"task": "Tâches",
 				"workspace": "Espace de travail"
@@ -1880,13 +1880,13 @@
 		},
 		"pageTitle": "Invitations",
 		"pendingInvitations": "Invitations en attente",
-		"acceptSubtitle": "Acceptez les invitations pour rejoindre les workspaces",
+		"acceptSubtitle": "Acceptez les invitations pour rejoindre les espaces de travail",
 		"noPendingTitle": "Aucune invitation en attente",
-		"noPendingDescription": "Vous n'avez aucune invitation de workspace en attente pour le moment.",
+		"noPendingDescription": "Vous n'avez aucune invitation d'espace de travail en attente pour le moment.",
 		"continueToSetup": "Continuer vers la configuration",
 		"skipForNow": "Ignorer pour l'instant",
 		"table": {
-			"workspace": "Workspace",
+			"workspace": "Espace de travail",
 			"invitedBy": "Invité par",
 			"expires": "Expire"
 		},
@@ -1920,7 +1920,7 @@
 			"pageTitle": "Rechercher",
 			"backToDashboard": "Retour au tableau de bord",
 			"placeholder": "Rechercher des tâches par titre ou ID court (ex: DEP-23)...",
-			"hint": "Rechercher dans tous les projets de ce workspace. Utilisez des ID courts comme DEP-23 pour trouver des tâches spécifiques.",
+			"hint": "Rechercher dans tous les projets de cet espace de travail. Utilisez des ID courts comme DEP-23 pour trouver des tâches spécifiques.",
 			"searching": "Recherche...",
 			"resultsFound_one": "{{count}} résultat trouvé",
 			"resultsFound_other": "{{count}} résultats trouvés",
@@ -1936,18 +1936,18 @@
 			"suggestionCompleted": "Terminé"
 		},
 		"create": {
-			"pageTitle": "Créer un workspace",
-			"heading": "Créer un nouveau workspace",
-			"subtitle": "Les workspaces sont des environnements partagés où les équipes peuvent travailler sur des projets, des cycles et des problèmes.",
-			"nameLabel": "Nom du workspace",
-			"namePlaceholder": "Entrez le nom du workspace",
+			"pageTitle": "Créer un espace de travail",
+			"heading": "Créer un nouvel espace de travail",
+			"subtitle": "Les espaces de travail sont des environnements partagés où les équipes peuvent travailler sur des projets, des cycles et des problèmes.",
+			"nameLabel": "Nom de l'espace de travail",
+			"namePlaceholder": "Entrez le nom de l'espace de travail",
 			"descriptionLabel": "Description (optionnel)",
-			"descriptionPlaceholder": "Ajoutez une description pour votre workspace",
+			"descriptionPlaceholder": "Ajoutez une description pour votre espace de travail",
 			"required": "Obligatoire",
 			"creating": "Création...",
-			"submit": "Créer un workspace",
-			"success": "Workspace créé avec succès",
-			"error": "Échec de la création du workspace"
+			"submit": "Créer un espace de travail",
+			"success": "Espace de travail créé avec succès",
+			"error": "Échec de la création de l'espace de travail"
 		}
 	},
 	"team": {
@@ -2002,7 +2002,7 @@
 	},
 	"publicProject": {
 		"pageTitle": "Vue publique",
-		"badge": "Public",
+		"badge": "Publique",
 		"readOnly": "Lecture seule",
 		"error": {
 			"title": "Projet non trouvé",

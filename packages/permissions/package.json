@@ -23,8 +23,8 @@
 	},
 	"devDependencies": {
 		"@kaneo/typescript-config": "workspace:*",
-		"typescript": "^5.9.2",
-		"vite": "^7.3.5",
+		"typescript": "^7.0.2",
+		"vite": "^8.2.0",
 		"vitest": "^4.1.10"
 	}
 }

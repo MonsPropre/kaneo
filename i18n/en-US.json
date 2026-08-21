@@ -339,6 +339,7 @@
 		"information": "Information",
 		"notifications": "Notifications",
 		"preferences": "Preferences",
+		"security": "Security",
 		"apiKeys": "API Keys",
 		"informationPage": {
 			"pageTitle": "Personal Information",
@@ -524,6 +525,36 @@
 			"labelsDescription": "Show task labels and tags",
 			"priority": "Priority",
 			"priorityDescription": "Display priority indicators"
+		},
+		"securityPage": {
+			"pageTitle": "Security",
+			"title": "Account security",
+			"subtitle": "Manage your account security settings.",
+			"passkeys": {
+				"title": "Passkeys",
+				"description": "Use passkeys to sign in securely without a password.",
+				"namePlaceholder": "Passkey name",
+				"nameLabel": "Passkey name",
+				"add": "Add passkey",
+				"notSupported": "Passkeys are not supported in this browser or context.",
+				"loading": "Loading passkeys...",
+				"empty": "No passkeys have been registered yet.",
+				"columnName": "Name",
+				"columnCreated": "Created",
+				"columnActions": "Actions",
+				"unnamedKey": "Unnamed passkey",
+				"deleteAria": "Delete passkey {{name}}",
+				"deleteTitle": "Delete passkey?",
+				"deleteDescription": "Are you sure you want to delete the passkey “{{name}}”? This action cannot be undone.",
+				"delete": "Delete",
+				"deleteLoading": "Deleting...",
+				"loadError": "Unable to load your passkeys.",
+				"created": "Passkey added successfully.",
+				"cancelled": "Passkey registration was cancelled.",
+				"createError": "Unable to add the passkey.",
+				"deleted": "Passkey deleted successfully.",
+				"deleteError": "Unable to delete the passkey."
+			}
 		},
 		"developerPage": {
 			"pageTitle": "Developer Settings",

@@ -3,7 +3,7 @@ import {
   useNavigate,
   useSearch,
 } from "@tanstack/react-router";
-import { KeyRound, UserCheck } from "lucide-react";
+import { Fingerprint, KeyRound, UserCheck } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { z } from "zod/v4";
@@ -47,6 +47,7 @@ function SignIn() {
   const [isGithubLoading, setIsGithubLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isDiscordLoading, setIsDiscordLoading] = useState(false);
+  const [isPasskeyLoading, setIsPasskeyLoading] = useState(false);
   const [isGuestLoading, setIsGuestLoading] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [autoLoginFailed, setAutoLoginFailed] = useState(false);
@@ -58,6 +59,17 @@ function SignIn() {
     isError: isInstanceStatusError,
     error: instanceStatusError,
   } = useInstanceStatus();
+  const autoLoginTriggered = useRef(false);
+
+  const invitationId = search.invitationId;
+  const defaultEmail = search.email;
+  const captchaConfigured = Boolean(TURNSTILE_SITE_KEY);
+  const captchaPending = captchaConfigured && !turnstileToken;
+  const isPasskeySupported =
+    typeof window !== "undefined" &&
+    window.isSecureContext &&
+    "PublicKeyCredential" in window &&
+    "credentials" in navigator;
 
   useEffect(() => {
     if (instanceStatus && instanceStatus.hasUsers === false) {
@@ -77,12 +89,6 @@ function SignIn() {
       );
     }
   }, [isInstanceStatusError, instanceStatusError, t]);
-  const autoLoginTriggered = useRef(false);
-
-  const invitationId = search.invitationId;
-  const defaultEmail = search.email;
-  const captchaConfigured = Boolean(TURNSTILE_SITE_KEY);
-  const captchaPending = captchaConfigured && !turnstileToken;
 
   const handleTurnstileVerify = useCallback((token: string) => {
     setTurnstileToken(token);
@@ -192,6 +198,41 @@ function SignIn() {
     }
   };
 
+  const handleSignInPasskey = async () => {
+    if (!isPasskeySupported) {
+      toast.error(
+        t("auth:signIn.passkeyNotSupported", {
+          defaultValue: "Les passkeys ne sont pas prises en charge.",
+        }),
+      );
+      return;
+    }
+
+    setIsPasskeyLoading(true);
+    try {
+      const result = await authClient.signIn.passkey();
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+
+      toast.success(t("auth:signIn.passkeySuccess"));
+
+      handleSignInSuccess();
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "NotAllowedError") {
+        toast.error(t("auth:signIn.passkeyCancelled"));
+      } else {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : t("auth:signIn.passkeyError"),
+        );
+      }
+    } finally {
+      setIsPasskeyLoading(false);
+    }
+  };
+
   const handleSignInSuccess = () => {
     const redirectPath = getSafeRedirectPath();
     if (redirectPath) {
@@ -262,6 +303,14 @@ function SignIn() {
     );
   }
 
+  const hasSocialSignIn =
+    isPasskeySupported ||
+    config?.hasGoogleSignIn ||
+    config?.hasGithubSignIn ||
+    config?.hasDiscordSignIn ||
+    config?.hasCustomOAuth ||
+    (config?.hasGuestAccess && !invitationId);
+
   return (
     <>
       <PageTitle title={t("auth:signIn.pageTitle")} />
@@ -297,13 +346,36 @@ function SignIn() {
             </Alert>
           )}
 
-          {(config?.hasGoogleSignIn ||
-            config?.hasGithubSignIn ||
-            config?.hasDiscordSignIn ||
-            config?.hasCustomOAuth ||
-            (config?.hasGuestAccess && !invitationId)) && (
+          {hasSocialSignIn && (
             <>
               <div className="space-y-3">
+                {isPasskeySupported && (
+                  <div className="relative">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleSignInPasskey}
+                      disabled={isPasskeyLoading}
+                      className={cn(
+                        "w-full",
+                        lastLoginMethod === "passkey" && "border-primary/50!",
+                      )}
+                    >
+                      <Fingerprint className="mr-2 size-5" />
+                      {isPasskeyLoading
+                        ? t("auth:signIn.signingIn")
+                        : t("auth:signIn.continueWithPasskey", {
+                            defaultValue: "Continuer avec une passkey",
+                          })}
+                    </Button>
+                    {lastLoginMethod === "passkey" && (
+                      <span className="absolute -top-3 right-1 rounded-md border border-primary/50 bg-sidebar px-1.5 text-xs font-medium text-primary">
+                        {t("auth:signIn.lastUsed")}
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 {config?.hasGoogleSignIn && (
                   <div className="relative">
                     <Button
@@ -318,7 +390,7 @@ function SignIn() {
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
-                        className="w-5 h-5 mr-2"
+                        className="mr-2 h-5 w-5"
                         aria-label={t("auth:providers.google")}
                       >
                         <title>Google</title>
@@ -332,7 +404,7 @@ function SignIn() {
                         : t("auth:signIn.continueWithGoogle")}
                     </Button>
                     {lastLoginMethod === "google" && (
-                      <span className="absolute rounded-md -top-3 right-1 px-1.5 text-xs text-primary font-medium bg-sidebar border border-primary/50">
+                      <span className="absolute -top-3 right-1 rounded-md border border-primary/50 bg-sidebar px-1.5 text-xs font-medium text-primary">
                         {t("auth:signIn.lastUsed")}
                       </span>
                     )}
@@ -350,13 +422,13 @@ function SignIn() {
                         lastLoginMethod === "github" && "border-primary/50!",
                       )}
                     >
-                      <GithubIcon className="w-5 h-5 mr-2" />
+                      <GithubIcon className="mr-2 h-5 w-5" />
                       {isGithubLoading
                         ? t("auth:signIn.signingIn")
                         : t("auth:signIn.continueWithGithub")}
                     </Button>
                     {lastLoginMethod === "github" && (
-                      <span className="absolute rounded-md -top-3 right-1 px-1.5 text-xs text-primary font-medium bg-sidebar border border-primary/50">
+                      <span className="absolute -top-3 right-1 rounded-md border border-primary/50 bg-sidebar px-1.5 text-xs font-medium text-primary">
                         {t("auth:signIn.lastUsed")}
                       </span>
                     )}
@@ -377,7 +449,7 @@ function SignIn() {
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
-                        className="w-5 h-5 mr-2"
+                        className="mr-2 h-5 w-5"
                         fill="currentColor"
                         aria-label={t("auth:providers.discord")}
                       >
@@ -389,7 +461,7 @@ function SignIn() {
                         : t("auth:signIn.continueWithDiscord")}
                     </Button>
                     {lastLoginMethod === "discord" && (
-                      <span className="absolute rounded-md -top-3 right-1 px-1.5 text-xs text-primary font-medium bg-sidebar border border-primary/50">
+                      <span className="absolute -top-3 right-1 rounded-md border border-primary/50 bg-sidebar px-1.5 text-xs font-medium text-primary">
                         {t("auth:signIn.lastUsed")}
                       </span>
                     )}
@@ -407,13 +479,13 @@ function SignIn() {
                         lastLoginMethod === "custom" && "border-primary/50!",
                       )}
                     >
-                      <KeyRound className="w-5 h-5 mr-2" />
+                      <KeyRound className="mr-2 h-5 w-5" />
                       {isCustomOAuthLoading
                         ? t("auth:signIn.signingIn")
                         : t("auth:signIn.continueWithOidc")}
                     </Button>
                     {lastLoginMethod === "custom" && (
-                      <span className="absolute rounded-md -top-3 right-1 px-1.5 text-xs text-primary font-medium bg-sidebar border border-primary/50">
+                      <span className="absolute -top-3 right-1 rounded-md border border-primary/50 bg-sidebar px-1.5 text-xs font-medium text-primary">
                         {t("auth:signIn.lastUsed")}
                       </span>
                     )}
@@ -428,7 +500,7 @@ function SignIn() {
                       disabled={isGuestLoading || captchaPending}
                       className="w-full"
                     >
-                      <UserCheck className="w-5 h-5 mr-2" />
+                      <UserCheck className="mr-2 h-5 w-5" />
                       {isGuestLoading
                         ? t("auth:signIn.signingIn")
                         : t("auth:signUp.continueAsGuest")}
@@ -451,7 +523,7 @@ function SignIn() {
                     <div className="w-full border-t border-border" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-card text-muted-foreground">
+                    <span className="bg-card px-2 text-muted-foreground">
                       {t("auth:forms.or")}
                     </span>
                   </div>
@@ -459,6 +531,7 @@ function SignIn() {
               )}
             </>
           )}
+
           {!config?.disableLoginForm &&
             (config?.hasSmtp && !config?.disableEmailOtpSignIn ? (
               <OtpSignInForm
@@ -473,9 +546,10 @@ function SignIn() {
                 onSuccess={handleSignInSuccess}
               />
             ))}
+
           {config?.disableRegistration ||
           config?.disablePasswordRegistration ? (
-            <div className="text-center pt-4">
+            <div className="pt-4 text-center">
               <p className="text-sm text-muted-foreground">
                 {config?.disableRegistration
                   ? t("auth:signIn.registrationDisabled")

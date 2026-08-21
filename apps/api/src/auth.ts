@@ -1,4 +1,5 @@
 import { apiKey } from "@better-auth/api-key";
+import { passkey } from "@better-auth/passkey";
 import {
   sendMagicLinkEmail,
   sendOtpEmail,
@@ -206,6 +207,7 @@ export const auth = betterAuth({
       teamMember: schema.teamMemberTable,
       apikey: schema.apikeyTable,
       deviceCode: schema.deviceCodeTable,
+      passkey: schema.passkeyTable,
     },
   }),
   user: {
@@ -273,6 +275,7 @@ export const auth = betterAuth({
           }),
         ]
       : []),
+    passkey(),
     lastLoginMethod(),
     magicLink({
       sendMagicLink: async ({ email, url }) => {

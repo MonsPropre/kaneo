@@ -138,6 +138,22 @@ export const verificationTable = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
+export const passkeyTable = pgTable("passkey", {
+  id: text("id").primaryKey(),
+  name: text("name"),
+  publicKey: text("public_key").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id, { onDelete: "cascade" }),
+  credentialID: text("credential_id").notNull(),
+  counter: integer("counter").notNull(),
+  deviceType: text("device_type").notNull(),
+  backedUp: boolean("backed_up").notNull(),
+  transports: text("transports"),
+  createdAt: timestamp("created_at", { precision: 6, withTimezone: true }),
+  aaguid: text("aaguid"),
+});
+
 export const workspaceTable = pgTable("workspace", {
   id: text("id")
     .$defaultFn(() => createId())
@@ -1079,6 +1095,7 @@ export const mcpOauthStateTable = pgTable(
 export const user = userTable;
 export const session = sessionTable;
 export const account = accountTable;
+export const passkey = passkeyTable;
 export const verification = verificationTable;
 export const workspace = workspaceTable;
 export const team = teamTable;
@@ -1093,6 +1110,7 @@ export const deviceCode = deviceCodeTable;
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  passkeys: many(passkey),
   teamMembers: many(teamMember),
   workspace_members: many(workspace_member),
   invitations: many(invitation),
@@ -1108,6 +1126,13 @@ export const sessionRelations = relations(session, ({ one }) => ({
 export const accountRelations = relations(account, ({ one }) => ({
   user: one(user, {
     fields: [account.userId],
+    references: [user.id],
+  }),
+}));
+
+export const passkeyRelations = relations(passkey, ({ one }) => ({
+  user: one(user, {
+    fields: [passkey.userId],
     references: [user.id],
   }),
 }));

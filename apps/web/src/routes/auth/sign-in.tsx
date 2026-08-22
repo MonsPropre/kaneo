@@ -200,11 +200,7 @@ function SignIn() {
 
   const handleSignInPasskey = async () => {
     if (!isPasskeySupported) {
-      toast.error(
-        t("auth:signIn.passkeyNotSupported", {
-          defaultValue: "Les passkeys ne sont pas prises en charge.",
-        }),
-      );
+      toast.error(t("auth:signIn.passkeyNotSupported"));
       return;
     }
 
@@ -364,9 +360,7 @@ function SignIn() {
                       <Fingerprint className="mr-2 size-5" />
                       {isPasskeyLoading
                         ? t("auth:signIn.signingIn")
-                        : t("auth:signIn.continueWithPasskey", {
-                            defaultValue: "Continuer avec une passkey",
-                          })}
+                        : t("auth:signIn.continueWithPasskey")}
                     </Button>
                     {lastLoginMethod === "passkey" && (
                       <span className="absolute -top-3 right-1 rounded-md border border-primary/50 bg-sidebar px-1.5 text-xs font-medium text-primary">
